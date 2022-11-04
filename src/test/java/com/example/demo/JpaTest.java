@@ -18,9 +18,9 @@ import org.slf4j.LoggerFactory;
 import com.example.demo.domain.User;
 import com.example.demo.domain.UserTranslation;
 
-public class FailingTest {
+public class JpaTest {
 
-	private static Logger log = LoggerFactory.getLogger(FailingTest.class);
+	private static Logger log = LoggerFactory.getLogger(JpaTest.class);
 
 	private static EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
@@ -46,7 +46,7 @@ public class FailingTest {
 	}
 
 	@Test
-	public void failingTest() {
+	public void shouldQueryUserTranslations() {
 		entityManager.getTransaction().begin();
 
 		log.info("Create user...");
@@ -59,7 +59,7 @@ public class FailingTest {
 		entityManager.persist(translation);
 		log.info("Translation created : {} ", translation);
 
-		List resultList = entityManager.createQuery("from UserTranslation where classifier.id=?1")
+		List<?> resultList = entityManager.createQuery("from UserTranslation where classifier.id=?1")
 				.setParameter(1, user1.getId())
 				.getResultList();
 		Assert.assertEquals(resultList, List.of(translation));
