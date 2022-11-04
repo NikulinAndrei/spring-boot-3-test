@@ -6,17 +6,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 @MappedSuperclass
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-public abstract class AbstractTranslationEntity<T extends AbstractEntity & WithTranslationKey> extends AbstractEntity {
+public abstract class AbstractTranslationEntity<T extends AbstractEntity & WithTranslationKey>
+		extends AbstractEntity {
 
 	@JoinColumn(name = "CLASSIFIER_ID", nullable = false)
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -25,9 +17,20 @@ public abstract class AbstractTranslationEntity<T extends AbstractEntity & WithT
 	@Column(name = "LOCALE_CODE", length = 15, nullable = false)
 	private String localeCode;
 
-	AbstractTranslationEntity(Long id, T classifier, String localeCode) {
-		super(id);
+	/* boilerplate */
+	public T getClassifier() {
+		return classifier;
+	}
+
+	public void setClassifier(T classifier) {
 		this.classifier = classifier;
+	}
+
+	public String getLocaleCode() {
+		return localeCode;
+	}
+
+	public void setLocaleCode(String localeCode) {
 		this.localeCode = localeCode;
 	}
 }
