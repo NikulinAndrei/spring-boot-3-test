@@ -59,8 +59,8 @@ public class FailingTest {
 		entityManager.persist(translation);
 		log.info("Translation created : {} ", translation);
 
-		List resultList = entityManager.createQuery("from UserTranslation where classifier.id=?")
-				.setParameter(0, user1.getId())
+		List resultList = entityManager.createQuery("from UserTranslation where classifier.id=?1")
+				.setParameter(1, user1.getId())
 				.getResultList();
 		Assert.assertEquals(resultList, List.of(translation));
 
