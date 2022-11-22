@@ -1,8 +1,8 @@
 package com.example.demo;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 import java.util.List;
 
@@ -45,6 +45,10 @@ public class JpaTest {
 		entityManager.close();
 	}
 
+	/**
+	 * This is already fixed,
+	 * see <a href="https://hibernate.atlassian.net/browse/HHH-15687">...</a>
+	 */
 	@Test
 	public void shouldQueryUserTranslations() {
 		entityManager.getTransaction().begin();
