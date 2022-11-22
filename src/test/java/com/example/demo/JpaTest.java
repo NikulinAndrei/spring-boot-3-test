@@ -64,7 +64,30 @@ public class JpaTest {
 				.getResultList();
 		Assert.assertEquals(resultList, List.of(translation));
 
-		entityManager.getTransaction().commit();
+		entityManager.getTransaction().rollback();
+	}
+
+	@Test
+	public void shouldQueryTranslationLike() {
+		entityManager.getTransaction().begin();
+
+		log.info("Create user...");
+		var user1 = createUser();
+		entityManager.persist(user1);
+		log.info("User created : {} ", user1);
+
+		List<?> resultList = entityManager.createQuery(
+						"from User user where user.name like ?1 escape '\\'"
+								+ " or user in ( "
+								+ " select distinct trans.classifier from UserTranslation trans where trans.translation like ?2 escape '\\' "
+								+ ")"
+				)
+				.setParameter(1, "User%")
+				.setParameter(2, "User%")
+				.getResultList();
+		Assert.assertEquals(resultList, List.of(user1));
+
+		entityManager.getTransaction().rollback();
 	}
 
 	private User createUser() {
