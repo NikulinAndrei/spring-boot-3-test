@@ -1,10 +1,10 @@
 package com.example.demo;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -67,7 +67,7 @@ public class JpaTest {
 		entityManager.getTransaction().rollback();
 	}
 
-	@Test
+@Test
 	public void shouldQueryTranslationLike() {
 		entityManager.getTransaction().begin();
 
