@@ -1,10 +1,10 @@
 package com.example.demo;
 
-import java.util.List;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
